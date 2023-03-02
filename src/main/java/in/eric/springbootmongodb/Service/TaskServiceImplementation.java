@@ -21,9 +21,7 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public Page<Task> getAllTasks(Pageable page) {
-
         List<Task> taskList = tasksRepository.findAll();
-
         if(taskList.size() > 0){
             return tasksRepository.findAll(page);
         }
@@ -42,17 +40,13 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public void deleteTaskById(String id) {
-
+        Task task = getTaskById(id);
+        tasksRepository.delete(task);
     }
 
-    @Override
-    public void deleteTaskByTitle(String title) {
-
-    }
 
     @Override
     public void deleteTaskByCode(String code) {
-
     }
 
     @Override
@@ -62,8 +56,18 @@ public class TaskServiceImplementation implements TaskService{
     }
 
     @Override
-    public Task updateTaskDetails(Task task) {
-        return null;
+    public Task updateTaskDetails(String id, Task task) {
+        //store the current details inside an object and then keep comparing the object
+        Task existingTask = getTaskById(id);
+
+        //checks if the object that is passed contains the changes or not, if not then use the existing one
+        existingTask.setCode(task.getCode() != null ? task.getCode() : existingTask.getCode());
+        existingTask.setTitle(task.getTitle() != null ? task.getTitle() : existingTask.getTitle());
+        existingTask.setStatus(task.getStatus() != null ? task.getStatus() : existingTask.getStatus());
+        existingTask.setDescription(task.getDescription() != null? task.getDescription() : existingTask.getDescription());
+
+        //save the changes on the object in which all the details are called at first
+        return tasksRepository.save(existingTask);
     }
 
     @Override
