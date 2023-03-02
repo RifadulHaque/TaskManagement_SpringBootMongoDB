@@ -1,4 +1,4 @@
-package Entity;
+package in.eric.springbootmongodb.Model;
 
 import lombok.Data;
 

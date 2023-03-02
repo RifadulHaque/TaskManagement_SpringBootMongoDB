@@ -1,6 +1,6 @@
-package Exceptions;
+package in.eric.springbootmongodb.Exceptions;
 
-import Entity.ErrorObject;
+import in.eric.springbootmongodb.Model.ErrorObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

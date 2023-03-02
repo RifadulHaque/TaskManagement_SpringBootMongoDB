@@ -1,13 +1,15 @@
-package Service;
+package in.eric.springbootmongodb.Service;
 
-import Entity.Task;
-import Exceptions.ResourceNotFoundException;
-import Repository.TasksRepository;
+import in.eric.springbootmongodb.Model.Task;
+import in.eric.springbootmongodb.Exceptions.ResourceNotFoundException;
+import in.eric.springbootmongodb.Repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,7 +21,13 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public Page<Task> getAllTasks(Pageable page) {
-        return tasksRepository.findAll(page);
+
+        List<Task> taskList = tasksRepository.findAll();
+
+        if(taskList.size() > 0){
+            return tasksRepository.findAll(page);
+        }
+        throw new ResourceNotFoundException("No task found");
     }
 
     @Override
@@ -49,7 +57,8 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public Task saveTaskDetails(Task task) {
-        return null;
+        task.setCreatedAt(new Date(System.currentTimeMillis()));
+        return tasksRepository.save(task);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package Entity;
+package in.eric.springbootmongodb.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "tasks")
+@Document(collection = "tasks")
 public class Task {
 
     @Id

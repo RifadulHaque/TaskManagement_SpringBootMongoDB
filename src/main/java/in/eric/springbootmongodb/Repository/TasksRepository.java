@@ -1,6 +1,6 @@
-package Repository;
+package in.eric.springbootmongodb.Repository;
 
-import Entity.Task;
+import in.eric.springbootmongodb.Model.Task;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

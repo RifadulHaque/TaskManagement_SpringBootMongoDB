@@ -1,4 +1,4 @@
-package Exceptions;
+package in.eric.springbootmongodb.Exceptions;
 
 public class ItemAlreadyExistsException extends RuntimeException{
 
