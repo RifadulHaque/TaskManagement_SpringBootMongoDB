@@ -14,16 +14,18 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collation = "tasks")
-public class Tasks {
+public class Task {
 
     @Id
     private String id;
+
+    private String code;
 
     private String title;
 
     private String description;
 
-    private Boolean completed;
+    private String status;
 
     private Date createdAt;
 
