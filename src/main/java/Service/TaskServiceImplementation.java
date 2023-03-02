@@ -1,6 +1,7 @@
 package Service;
 
 import Entity.Task;
+import Exceptions.ResourceNotFoundException;
 import Repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +29,7 @@ public class TaskServiceImplementation implements TaskService{
         if(task.isPresent()){
             return task.get();
         }
-        return null;
+        throw new ResourceNotFoundException("Task is not found with the id" + id);
     }
 
     @Override
