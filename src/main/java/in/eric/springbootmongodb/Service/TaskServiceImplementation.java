@@ -18,6 +18,9 @@ public class TaskServiceImplementation implements TaskService{
     @Autowired
     private TasksRepository tasksRepository;
 
+    @Autowired
+    private EmployeeService employeeService;
+
 
     @Override
     public Page<Task> getAllTasks(Pageable page) {
@@ -46,10 +49,6 @@ public class TaskServiceImplementation implements TaskService{
 
 
     @Override
-    public void deleteTaskByCode(String code) {
-    }
-
-    @Override
     public Task saveTaskDetails(Task task) {
         task.setCreatedAt(new Date(System.currentTimeMillis()));
         return tasksRepository.save(task);
@@ -71,17 +70,18 @@ public class TaskServiceImplementation implements TaskService{
     }
 
     @Override
-    public Page<Task> readByTaskStatus(String status, Pageable page) {
-        return null;
+    public List<Task> readByTaskStatus(String status, Pageable page) {
+
+        return tasksRepository.findByEmployeeIdAndStatus(employeeService.getLoggedInEmployee().getId(), status, page).toList();
     }
 
     @Override
-    public Page<Task> readByTaskCode(String code, Pageable page) {
-        return null;
+    public List<Task> readByTaskCode(String code, Pageable page) {
+        return tasksRepository.findByEmployeeIdAndCode(employeeService.getLoggedInEmployee().getId(),code, page).toList();
     }
 
     @Override
-    public Page<Task> readByTaskCodeContaining(String keyword, Pageable page) {
-        return null;
+    public List<Task> readByTaskCodeContaining(String keyword, Pageable page) {
+        return tasksRepository.findByEmployeeIdAndCodeContaining(employeeService.getLoggedInEmployee().getId(), keyword, page).toList();
     }
 }

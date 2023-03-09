@@ -14,17 +14,15 @@ public interface TaskService {
 
     void deleteTaskById(String id);
 
-    void deleteTaskByCode(String code);
-
     Task saveTaskDetails(Task task);
 
     Task updateTaskDetails(String id, Task task);
 
-    Page<Task> readByTaskStatus(String status, Pageable page);
+    List<Task> readByTaskStatus(String status, Pageable page);
 
-    Page<Task> readByTaskCode (String code, Pageable page);
+    List<Task> readByTaskCode (String code, Pageable page);
 
-    Page<Task> readByTaskCodeContaining(String keyword, Pageable page);
+    List<Task> readByTaskCodeContaining(String keyword, Pageable page);
 
 
 }
