@@ -1,11 +1,9 @@
 package in.eric.springbootmongodb.Controller;
 
 import in.eric.springbootmongodb.Model.Task;
-import in.eric.springbootmongodb.Repository.TasksRepository;
 import in.eric.springbootmongodb.Service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -45,7 +43,7 @@ public class TasksController {
 
     //DELETE {{url}}/task?id=6
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @DeleteMapping("/courses")
+    @DeleteMapping("/task")
     public void deleteTaskById(@RequestParam("id") String id) {
         taskService.deleteTaskById(id);
     }
@@ -59,6 +57,40 @@ public class TasksController {
 
     // -------- Normal ones ends here ------
 
+    //this method was first added in CourseRepository and then implemented in CourseServive and then called here
+    //GET {{url}}/tasks/code?code=NFS
+    @GetMapping("/tasks/code")
+    public List<Task> getAllTasksByTaskCode(@RequestParam String code, Pageable page) {
+        return taskService.readByTaskCode(code,page);
+    }
+
+    //GET {{url}}/tasks/status?status=Completed
+    @GetMapping("/tasks/status")
+    public List<Task> getAllTasksByTaskStatus(@RequestParam String status, Pageable page) {
+        return taskService.readByTaskStatus(status,page);
+    }
+
+    // GET {{url}}/tasks/codeKeyword?keyword=NFS
+    @GetMapping("/tasks/codeKeyword")
+    public List<Task> getAllTasksByCodeKeyword(@RequestParam String keyword, Pageable page) {
+        return taskService.readByTaskCodeContaining(keyword,page);
+    }
+
+    // GET {{url}}/tasks/titleKeyword?keyword=NFS
+    @GetMapping("/tasks/titleKeyword")
+    public List<Task> getAllTaskByTitleKeyword(@RequestParam String keyword, Pageable page) {
+        return taskService.readByTaskTitleContaining(keyword,page);
+    }
+
+    /*
+
+        code:"NFS-2"
+        title:"Fix the parameters of getAllTasks"
+         description:"The parameter is wrong which is giving the error"
+        status:"Completed"
+        createdAt:2023-03-02T10:58:15.903+00:00
+        _class:"in.eric.springbootmongodb.Model.Task"
+    */
 
 
 }

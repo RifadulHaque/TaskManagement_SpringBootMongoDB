@@ -18,19 +18,22 @@ public class TaskServiceImplementation implements TaskService{
     @Autowired
     private TasksRepository tasksRepository;
 
+    @Autowired
+    private EmployeeService employeeService;
+
 
     @Override
     public Page<Task> getAllTasks(Pageable page) {
-        List<Task> taskList = tasksRepository.findAll();
+        List<Task> taskList = tasksRepository.findByEmployeeId(employeeService.getLoggedInEmployee().getId(),page).toList();
         if(taskList.size() > 0){
-            return tasksRepository.findAll(page);
+            return tasksRepository.findByEmployeeId(employeeService.getLoggedInEmployee().getId(),page);
         }
         throw new ResourceNotFoundException("No task found");
     }
 
     @Override
     public Task getTaskById(String id) {
-        Optional<Task> task = tasksRepository.findById(id);
+        Optional<Task> task = tasksRepository.findByEmployeeIdAndId(employeeService.getLoggedInEmployee().getId(), id);
 
         if(task.isPresent()){
             return task.get();
@@ -46,12 +49,9 @@ public class TaskServiceImplementation implements TaskService{
 
 
     @Override
-    public void deleteTaskByCode(String code) {
-    }
-
-    @Override
     public Task saveTaskDetails(Task task) {
         task.setCreatedAt(new Date(System.currentTimeMillis()));
+        task.setEmployee(employeeService.getLoggedInEmployee());
         return tasksRepository.save(task);
     }
 
@@ -71,17 +71,23 @@ public class TaskServiceImplementation implements TaskService{
     }
 
     @Override
-    public Page<Task> readByTaskStatus(String status, Pageable page) {
-        return null;
+    public List<Task> readByTaskStatus(String status, Pageable page) {
+
+        return tasksRepository.findByEmployeeIdAndStatus(employeeService.getLoggedInEmployee().getId(), status, page).toList();
     }
 
     @Override
-    public Page<Task> readByTaskCode(String code, Pageable page) {
-        return null;
+    public List<Task> readByTaskCode(String code, Pageable page) {
+        return tasksRepository.findByEmployeeIdAndCode(employeeService.getLoggedInEmployee().getId(),code, page).toList();
     }
 
     @Override
-    public Page<Task> readByTaskCodeContaining(String keyword, Pageable page) {
-        return null;
+    public List<Task> readByTaskCodeContaining(String keyword, Pageable page) {
+        return tasksRepository.findByEmployeeIdAndCodeContaining(employeeService.getLoggedInEmployee().getId(), keyword, page).toList();
+    }
+
+    @Override
+    public List<Task> readByTaskTitleContaining(String keyword, Pageable page) {
+        return tasksRepository.findByEmployeeIdAndTitleContaining(employeeService.getLoggedInEmployee().getId(), keyword, page).toList();
     }
 }
