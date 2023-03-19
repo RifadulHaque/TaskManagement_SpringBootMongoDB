@@ -20,6 +20,13 @@ import javax.validation.Valid;
 @RestController
 public class AuthController {
 
+    /*Login details
+   {
+    "email": "test1@gmail.com",
+    "password": "test1"
+   }
+ */
+
     @Autowired
     private EmployeeService employeeService;
 
