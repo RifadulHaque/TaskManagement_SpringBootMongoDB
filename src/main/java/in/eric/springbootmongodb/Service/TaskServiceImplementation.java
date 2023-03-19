@@ -24,16 +24,16 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public Page<Task> getAllTasks(Pageable page) {
-        List<Task> taskList = tasksRepository.findAll();
+        List<Task> taskList = tasksRepository.findByEmployeeId(employeeService.getLoggedInEmployee().getId(),page).toList();
         if(taskList.size() > 0){
-            return tasksRepository.findAll(page);
+            return tasksRepository.findByEmployeeId(employeeService.getLoggedInEmployee().getId(),page);
         }
         throw new ResourceNotFoundException("No task found");
     }
 
     @Override
     public Task getTaskById(String id) {
-        Optional<Task> task = tasksRepository.findById(id);
+        Optional<Task> task = tasksRepository.findByEmployeeIdAndId(employeeService.getLoggedInEmployee().getId(), id);
 
         if(task.isPresent()){
             return task.get();
@@ -51,6 +51,7 @@ public class TaskServiceImplementation implements TaskService{
     @Override
     public Task saveTaskDetails(Task task) {
         task.setCreatedAt(new Date(System.currentTimeMillis()));
+        task.setEmployee(employeeService.getLoggedInEmployee());
         return tasksRepository.save(task);
     }
 
@@ -83,5 +84,10 @@ public class TaskServiceImplementation implements TaskService{
     @Override
     public List<Task> readByTaskCodeContaining(String keyword, Pageable page) {
         return tasksRepository.findByEmployeeIdAndCodeContaining(employeeService.getLoggedInEmployee().getId(), keyword, page).toList();
+    }
+
+    @Override
+    public List<Task> readByTaskTitleContaining(String keyword, Pageable page) {
+        return tasksRepository.findByEmployeeIdAndTitleContaining(employeeService.getLoggedInEmployee().getId(), keyword, page).toList();
     }
 }

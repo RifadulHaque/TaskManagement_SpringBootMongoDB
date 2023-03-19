@@ -66,15 +66,31 @@ public class TasksController {
 
     //GET {{url}}/tasks/status?status=Completed
     @GetMapping("/tasks/status")
-    public List<Task> getAllCoursesByCourseStatus(@RequestParam String status, Pageable page) {
+    public List<Task> getAllTasksByTaskStatus(@RequestParam String status, Pageable page) {
         return taskService.readByTaskStatus(status,page);
     }
 
     // GET {{url}}/tasks/codeKeyword?keyword=NFS
     @GetMapping("/tasks/codeKeyword")
-    public List<Task> getAllCoursesByCourseCodeKeyword(@RequestParam String keyword, Pageable page) {
+    public List<Task> getAllTasksByCodeKeyword(@RequestParam String keyword, Pageable page) {
         return taskService.readByTaskCodeContaining(keyword,page);
     }
+
+    // GET {{url}}/tasks/titleKeyword?keyword=NFS
+    @GetMapping("/tasks/titleKeyword")
+    public List<Task> getAllTaskByTitleKeyword(@RequestParam String keyword, Pageable page) {
+        return taskService.readByTaskTitleContaining(keyword,page);
+    }
+
+    /*
+
+        code:"NFS-2"
+        title:"Fix the parameters of getAllTasks"
+         description:"The parameter is wrong which is giving the error"
+        status:"Completed"
+        createdAt:2023-03-02T10:58:15.903+00:00
+        _class:"in.eric.springbootmongodb.Model.Task"
+    */
 
 
 }

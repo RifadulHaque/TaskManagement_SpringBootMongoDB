@@ -24,5 +24,6 @@ public interface TaskService {
 
     List<Task> readByTaskCodeContaining(String keyword, Pageable page);
 
+    List<Task> readByTaskTitleContaining(String keyword, Pageable page);
 
 }

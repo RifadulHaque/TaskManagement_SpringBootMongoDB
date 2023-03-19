@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
@@ -31,7 +32,9 @@ public class Employee {
 
     private Long age;
 
-    private List<Task> tasks;
+//    //when the lazy loading is false, if this class has any reference document when we will get that document as well
+//    @DBRef//adding relationship with a different collection
+//    private List<Task> tasks;
 
 }
 

@@ -17,9 +17,10 @@ public interface TasksRepository extends MongoRepository<Task,String> {
     Page<Task> findByEmployeeIdAndCode(String employeeId, String code, Pageable page);
     Page<Task> findByEmployeeIdAndTitle(String employeeId, String title, Pageable page);
 
-    Page<Task> findByEmployeeIdAndCodeContaining(String userId, String keyword, Pageable page);
+    Page<Task> findByEmployeeIdAndCodeContaining(String employeeId, String keyword, Pageable page);
+    Page<Task> findByEmployeeIdAndTitleContaining(String employeeId, String titleKeyword, Pageable page);
 
-    Page<Task> findByEmployeeId(String userId, Pageable page);
-    Optional<Task> findByEmployeeIdAndId(String employeeId, String id, Pageable page);
+    Page<Task> findByEmployeeId(String employeeId, Pageable page);
+    Optional<Task> findByEmployeeIdAndId(String employeeId, String id);
 
 }

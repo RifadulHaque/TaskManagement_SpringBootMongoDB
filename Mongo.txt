@@ -1,0 +1,10 @@
+And operator in MongoDB - {$and:[{"name":"Sam"},{"email":"sam@gmail.com"}]}
+
+Or operator in MongoDb - {$or:[{"name":"Sam"},{"email":"robert@gmail.com"}]} - used when we want to search for two items in two different fields/column
+
+$In query in MongoDB - {"name":{$in: ["Sam","Robert"]}} - used when we search for 2 items in the same field such as name
+
+For updating in the collection we use db.employee.update({"name":"Sam"},{$set:{"email":"sam@gmail.com","name":"sam_1"}})
+For removing from the collection we use db.employee.remove({"name":"Sam"},{$set:{"email":"sam@gmail.com","name":"sam_1"}})
+
+For finding from the collection we use db.employee.find({"name":"Sam"},{$set:{"email":"sam@gmail.com","name":"sam_1"}})

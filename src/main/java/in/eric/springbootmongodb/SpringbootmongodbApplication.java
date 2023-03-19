@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 
 @SpringBootApplication
-@EnableMongoRepositories("in.eric.springbootmongodb")
+@EnableMongoRepositories
 public class SpringbootmongodbApplication {
 
 	public static void main(String[] args) {
