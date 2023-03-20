@@ -72,8 +72,7 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public List<Task> readByTaskStatus(String status, Pageable page) {
-
-        return tasksRepository.findByEmployeeIdAndStatus(employeeService.getLoggedInEmployee().getId(), status, page).toList();
+        return tasksRepository.getByEmployeeIdAndStatus(employeeService.getLoggedInEmployee().getId(), status, page).toList();
     }
 
     @Override
