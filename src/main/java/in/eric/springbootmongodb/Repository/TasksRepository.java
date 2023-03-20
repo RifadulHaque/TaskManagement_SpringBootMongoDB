@@ -17,7 +17,10 @@ public interface TasksRepository extends MongoRepository<Task,String> {
 
     Page<Task> findByEmployeeIdAndCode(String employeeId, String code, Pageable page);
 
-    Page<Task> findByEmployeeIdAndCodeContaining(String employeeId, String keyword, Pageable page);
+    //Page<Task> findByEmployeeIdAndCodeContaining(String employeeId, String keyword, Pageable page);
+    //This below can be used like IsLike instead of Containing keyword
+    Page<Task> findByEmployeeIdAndCodeIsLike(String employeeId, String keyword, Pageable page);
+
     Page<Task> findByEmployeeIdAndTitleContaining(String employeeId, String titleKeyword, Pageable page);
 
     Page<Task> findByEmployeeId(String employeeId, Pageable page);
