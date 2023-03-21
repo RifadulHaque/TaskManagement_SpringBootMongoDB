@@ -6,6 +6,7 @@ import in.eric.springbootmongodb.Repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -72,8 +73,7 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public List<Task> readByTaskStatus(String status, Pageable page) {
-
-        return tasksRepository.findByEmployeeIdAndStatus(employeeService.getLoggedInEmployee().getId(), status, page).toList();
+        return tasksRepository.getByEmployeeIdAndStatus(employeeService.getLoggedInEmployee().getId(), status, page).toList();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class TaskServiceImplementation implements TaskService{
 
     @Override
     public List<Task> readByTaskCodeContaining(String keyword, Pageable page) {
-        return tasksRepository.findByEmployeeIdAndCodeContaining(employeeService.getLoggedInEmployee().getId(), keyword, page).toList();
+        return tasksRepository.findByEmployeeIdAndCodeIsLike(employeeService.getLoggedInEmployee().getId(), keyword, page).toList();
     }
 
     @Override
